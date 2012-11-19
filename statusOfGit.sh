@@ -1,4 +1,6 @@
 #!/bin/bash
+#start from the home directory
+cd
 for dir in `find -name '.git' | sed 's/.git//g'`; do
     echo $dir
     declare -a branches
