@@ -4,7 +4,7 @@ cd
 for dir in `find -name '.git' | sed 's/\(^.*\).git$/\1/'`; do
     if [ -d $dir ]; then
         cd $dir
-        GIT_STATUS=`git status | grep "Changes not staged for commit\|but untracked files present"`
+        GIT_STATUS=`git status | grep "Changes not staged for commit\|but untracked files present\|Your branch is ahead of"`
         if [ "$GIT_STATUS" != "" ]; then
             branch=`git branch`
             echo "$dir" 'on branch '
