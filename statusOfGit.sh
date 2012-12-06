@@ -1,17 +1,31 @@
 #!/bin/bash
+
 #start from the home directory
 cd
+echo "starting search for git repos..."
 for dir in `find -name '.git' | sed 's/\(^.*\).git$/\1/'`; do
     if [ -d $dir ]; then
         cd $dir
-        GIT_STATUS=`git status | grep "Changes not staged for commit\|but untracked files present\|Your branch is ahead of"`
+        branch=`git branch`
+        GIT_STATUS=`git status | grep "Changes not staged for commit"`
         if [ "$GIT_STATUS" != "" ]; then
-            branch=`git branch`
             echo "$dir" 'on branch '
             echo "$branch"
-            echo 'has changes to be committed'
+            echo 'changes not staged for commit'
         fi
-        #return to home directory before working on next git repo
+        GIT_STATUS=`git status | grep "but untracked files present"`
+        if [ "$GIT_STATUS" != "" ]; then
+            echo "$dir" 'on branch '
+            echo "$branch"
+            echo 'has untracked files'
+        fi
+        GIT_STATUS=`git status | grep "Your branch is ahead of"`
+        if [ "$GIT_STATUS" != "" ]; then
+            echo "$dir" 'on branch '
+            echo "$branch"
+            echo 'branch is ahead of origin'
+        fi
     fi
+    #return to home directory before working on next git repo
     cd
 done
