@@ -3,7 +3,7 @@
 #start from the home directory
 cd
 echo "starting search for git repos..."
-for dir in `find -name '.git' | sed 's/\(^.*\).git$/\1/'`; do
+for dir in `find ~ -name '.git' | sed 's/\(^.*\).git$/\1/'`; do
     if [ -d $dir ]; then
         cd $dir
         branch=`git branch`
