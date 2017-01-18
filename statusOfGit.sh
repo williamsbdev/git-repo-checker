@@ -16,6 +16,7 @@ for dir in `find ~ -name '.git' | sed 's/\(^.*\).git$/\1/' | grep -v "Library" |
     if [ -d $dir ]; then
         pushd $dir &>/dev/null
         check_if_repo_is_clean "Changes not staged for commit"
+        check_if_repo_is_clean "Changes to be committed"
         check_if_repo_is_clean "but untracked files present"
         check_if_repo_is_clean "Your branch is ahead of"
     fi
